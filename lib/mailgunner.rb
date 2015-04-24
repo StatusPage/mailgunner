@@ -60,6 +60,18 @@ module Mailgunner
     def add_domain(attributes = {})
       post('/v2/domains', attributes)
     end
+    
+    def add_webhook(domain, webhook_type, webhook_url)
+      post("/v2/domains/#{escape domain}/webhooks", {id: webhook_type, url: webhook_url})
+    end
+    
+    def update_webhook(domain, webhook_type, webhook_url)
+      put("/v2/domains/#{escape domain}/webhooks/#{escape webhook_type}", {url: webhook_url})
+    end
+    
+    def delete_webhook(domain, webhook_type)
+      delete("/v2/domains/#{escape domain}/webhooks/#{escape webhook_type}")
+    end
 
     def get_unsubscribes(params = {})
       get("/v2/#{escape @domain}/unsubscribes", params)
