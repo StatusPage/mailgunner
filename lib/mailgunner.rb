@@ -23,6 +23,7 @@ module Mailgunner
       end
 
       @http = Net::HTTP.new('api.mailgun.net', Net::HTTP.https_default_port)
+      @http.read_timeout = options.fetch(:read_timeout) if options.key?(:read_timeout)
 
       @http.use_ssl = true
     end
